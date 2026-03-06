@@ -2,17 +2,11 @@ import React from 'react';
 import './TermsAndConditions.css';
 
 const TermsAndConditions: React.FC = () => {
-  const currentDate = new Date().toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
-  });
-
   return (
     <div className="terms-container">
       <div className="terms-header">
         <h1>TBYT Terms and Conditions</h1>
-        <p className="last-updated">Last Updated: {currentDate}</p>
+        <p className="last-updated">Last Updated: March 07, 2026</p>
       </div>
 
       <div className="terms-content">
@@ -47,7 +41,7 @@ const TermsAndConditions: React.FC = () => {
             <li><strong>Multi-device Access:</strong> Access your transcriptions and audio files from multiple devices</li>
           </ul>
           <p>
-            We utilize cloud-based technology (Google Cloud Storage or Supabase) and AI services (Google Gemini API) 
+            We utilize cloud-based technology and AI services 
             to process your audio notes into actionable text data. Audio files are stored permanently in cloud storage 
             to allow you to access and process them at any time.
           </p>
@@ -59,7 +53,7 @@ const TermsAndConditions: React.FC = () => {
             To use the service, you need to create an account with your email address and password.
           </p>
           <p>
-            <strong>Optional API Key:</strong> You may optionally choose to use your own Google Gemini API key instead of our default service. 
+            <strong>Optional API Key:</strong> You may optionally choose to use your own API key instead of our default service. 
             If you choose to use your own API key, you are responsible for managing your API key quotas and costs. 
             Your API key is stored securely and only used for processing your own audio files.
           </p>
@@ -140,7 +134,7 @@ const TermsAndConditions: React.FC = () => {
             If you have any questions about these Terms and Conditions, please contact us at:
           </p>
           <p className="contact-email">
-            Email: <a href="mailto:naveenchaudhary103@gmail.com">naveenchaudhary103@gmail.com</a>
+            Email: <a href="mailto:voicedictation007@gmail.com">voicedictation007@gmail.com</a>
           </p>
           <p>
             We may update our Terms and Conditions from time to time. Any changes will be communicated by 

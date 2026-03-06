@@ -2,17 +2,11 @@ import React from 'react';
 import './PrivacyPolicy.css';
 
 const PrivacyPolicy: React.FC = () => {
-  const currentDate = new Date().toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
-  });
-
   return (
     <div className="policy-container">
       <div className="policy-header">
         <h1>TBYT Privacy Policy</h1>
-        <p className="last-updated">Last Updated: {currentDate}</p>
+        <p className="last-updated">Last Updated: March 07, 2026</p>
       </div>
 
       <div className="policy-content">
@@ -68,7 +62,7 @@ const PrivacyPolicy: React.FC = () => {
           <div className="subsection">
             <h3>API Key Information</h3>
             <p>
-              If you choose to use your own Google Gemini API key instead of our default service, we store your API key securely (encrypted) 
+              If you choose to use your own API key instead of our default service, we store your API key securely (encrypted) 
               to process your audio files. Your API key is only used for processing your own audio files and is never shared with other users or third parties.
             </p>
           </div>
@@ -131,7 +125,7 @@ const PrivacyPolicy: React.FC = () => {
           <ul className="security-list">
             <li>All data transmitted between your device and our servers is encrypted using HTTPS/TLS protocols</li>
             <li>Passwords are hashed using secure cryptographic algorithms</li>
-            <li>Audio files are stored in encrypted cloud storage (Google Cloud Storage or Supabase)</li>
+            <li>Audio files are stored in encrypted cloud storage</li>
             <li>Transcriptions and user data are stored in encrypted databases</li>
             <li>API keys (if you provide your own) are encrypted before storage</li>
             <li>Access to your account requires authentication tokens (JWT)</li>
@@ -180,7 +174,7 @@ const PrivacyPolicy: React.FC = () => {
             If you have any questions about this Privacy Policy, please contact us at:
           </p>
           <p className="contact-email">
-            Email: <a href="mailto:naveenchaudhary103@gmail.com">naveenchaudhary103@gmail.com</a>
+            Email: <a href="mailto:voicedictation007@gmail.com">voicedictation007@gmail.com</a>
           </p>
         </section>
 
