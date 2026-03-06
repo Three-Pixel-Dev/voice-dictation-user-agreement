@@ -1,0 +1,96 @@
+.terms-container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.terms-header {
+  border-bottom: 2px solid #22C55E;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.terms-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.last-updated {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.terms-content {
+  line-height: 1.8;
+}
+
+.terms-section {
+  margin-bottom: 2.5rem;
+}
+
+.terms-section h2 {
+  font-size: 1.5rem;
+  color: #22C55E;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+.terms-section h2:first-of-type {
+  margin-top: 0;
+}
+
+.terms-section p {
+  margin-bottom: 1rem;
+  color: #444;
+  font-size: 1rem;
+}
+
+.intro {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.9;
+}
+
+.terms-section ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: #444;
+}
+
+.terms-section li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+.contact-email {
+  font-size: 1.05rem;
+  margin: 1rem 0;
+}
+
+.contact-email a {
+  color: #22C55E;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contact-email a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .terms-container {
+    padding: 1.5rem;
+  }
+
+  .terms-header h1 {
+    font-size: 2rem;
+  }
+
+  .terms-section h2 {
+    font-size: 1.3rem;
+  }
+}
