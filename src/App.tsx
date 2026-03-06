@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
+import DeleteAccount from './pages/DeleteAccount';
 import './App.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <div className="nav-links">
               <Link to="/privacy-policy" className="nav-link">Privacy Policy</Link>
               <Link to="/terms-and-conditions" className="nav-link">Terms & Conditions</Link>
+              <Link to="/delete-account" className="nav-link">Delete Account</Link>
             </div>
           </div>
         </nav>
@@ -24,6 +26,7 @@ function App() {
             <Route path="/" element={<PrivacyPolicy />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+            <Route path="/delete-account" element={<DeleteAccount />} />
           </Routes>
         </main>
         <footer className="footer">

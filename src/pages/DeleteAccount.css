@@ -1,0 +1,234 @@
+.delete-account-container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.delete-account-header {
+  border-bottom: 2px solid #22C55E;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.delete-account-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.delete-account-content {
+  line-height: 1.8;
+}
+
+.info-section {
+  background-color: #f8f9fa;
+  border-left: 4px solid #22C55E;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.info-section h2 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+.info-section p {
+  color: #555;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.info-section ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.info-section li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+.retention-notice {
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 1rem;
+  color: #856404;
+}
+
+.retention-notice strong {
+  color: #856404;
+}
+
+.delete-account-form {
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #22C55E;
+}
+
+.form-group input.error,
+.form-group textarea.error {
+  border-color: #dc3545;
+}
+
+.form-group input:disabled,
+.form-group textarea:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  padding: 1.5rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.success-message strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.success-message p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 1rem;
+  background-color: #22C55E;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 1rem;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #16a34a;
+}
+
+.submit-button:disabled {
+  background-color: #94d3a2;
+  cursor: not-allowed;
+}
+
+.form-footer {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  margin-top: 1rem;
+  line-height: 1.6;
+}
+
+.contact-section {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  border-top: 2px solid #e0e0e0;
+  padding-top: 2rem;
+}
+
+.contact-section h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.contact-section p {
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.contact-email {
+  font-size: 1.05rem;
+  margin-top: 0.5rem;
+}
+
+.contact-email a {
+  color: #22C55E;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contact-email a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .delete-account-container {
+    padding: 1.5rem;
+  }
+
+  .delete-account-header h1 {
+    font-size: 2rem;
+  }
+
+  .info-section {
+    padding: 1rem;
+  }
+}
