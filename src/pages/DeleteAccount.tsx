@@ -4,8 +4,15 @@ import './DeleteAccount.css';
 
 const DeleteAccount: React.FC = () => {
   const [email, setEmail] = useState('');
+  const [otp, setOtp] = useState('');
   const [reason, setReason] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSendingOtp, setIsSendingOtp] = useState(false);
+  const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
+  const [isOtpSent, setIsOtpSent] = useState(false);
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [otpMessage, setOtpMessage] = useState('');
+  const [submittedEmail, setSubmittedEmail] = useState('');
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -13,26 +20,126 @@ const DeleteAccount: React.FC = () => {
   const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID || '';
   const TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID || '';
   const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY || '';
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://api.expn-ai.com';
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const validateEmail = () => {
+    if (!email.trim()) {
+      setErrorMessage('Please enter your email address');
+      setSubmitStatus('error');
+      return false;
+    }
+
+    if (!emailRegex.test(email)) {
+      setErrorMessage('Please enter a valid email address');
+      setSubmitStatus('error');
+      return false;
+    }
+
+    return true;
+  };
+
+  const callOtpApi = async (endpoint: string, payload: Record<string, string>) => {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const responseData = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      const apiMessage = responseData?.message;
+      throw new Error(apiMessage || 'Unable to complete OTP request.');
+    }
+
+    return responseData?.message || responseData?.data?.message || 'Request completed successfully.';
+  };
+
+  const handleSendOtp = async () => {
+    setSubmitStatus('idle');
+    setErrorMessage('');
+    setOtpMessage('');
+
+    if (!validateEmail()) {
+      return;
+    }
+
+    setIsSendingOtp(true);
+    try {
+      const message = await callOtpApi('/api/auth/delete-account-send-otp', { email: email.trim() });
+      setIsOtpSent(true);
+      setIsOtpVerified(false);
+      setOtp('');
+      setOtpMessage(message || 'OTP sent to your email.');
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to send OTP. Please try again.';
+      setSubmitStatus('error');
+      setErrorMessage(message);
+    } finally {
+      setIsSendingOtp(false);
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    setSubmitStatus('idle');
+    setErrorMessage('');
+    setOtpMessage('');
+
+    if (!validateEmail()) {
+      return;
+    }
+
+    if (!otp.trim()) {
+      setSubmitStatus('error');
+      setErrorMessage('Please enter the OTP sent to your email');
+      return;
+    }
+
+    setIsVerifyingOtp(true);
+    try {
+      const message = await callOtpApi('/api/auth/delete-account-verify-otp', {
+        email: email.trim(),
+        otp: otp.trim(),
+      });
+      setIsOtpVerified(true);
+      setOtpMessage(message || 'OTP verified successfully.');
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'OTP verification failed. Please try again.';
+      setSubmitStatus('error');
+      setErrorMessage(message);
+      setIsOtpVerified(false);
+    } finally {
+      setIsVerifyingOtp(false);
+    }
+  };
+
+  const handleEmailChange = (value: string) => {
+    setEmail(value);
+    setIsOtpSent(false);
+    setIsOtpVerified(false);
+    setOtp('');
+    setOtpMessage('');
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!email.trim()) {
-      setErrorMessage('Please enter your email address');
+    if (!validateEmail()) {
+      return;
+    }
+
+    if (!isOtpVerified) {
+      setErrorMessage('Please verify OTP before submitting your deletion request');
       setSubmitStatus('error');
       return;
     }
 
     if (!reason.trim()) {
       setErrorMessage('Please provide a reason for account deletion');
-      setSubmitStatus('error');
-      return;
-    }
-
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setErrorMessage('Please enter a valid email address');
       setSubmitStatus('error');
       return;
     }
@@ -68,8 +175,13 @@ This is an automated request from the TBYT account deletion form.`,
       });
 
       setSubmitStatus('success');
+      setSubmittedEmail(email);
       setEmail('');
+      setOtp('');
       setReason('');
+      setIsOtpSent(false);
+      setIsOtpVerified(false);
+      setOtpMessage('');
     } catch (error) {
       console.error('EmailJS Error:', error);
       setSubmitStatus('error');
@@ -111,16 +223,55 @@ This is an automated request from the TBYT account deletion form.`,
         <form className="delete-account-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email Address *</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your registered email address"
-              required
-              disabled={isSubmitting}
-              className={submitStatus === 'error' && !email.trim() ? 'error' : ''}
-            />
+            <div className="email-otp-row">
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => handleEmailChange(e.target.value)}
+                placeholder="Enter your registered email address"
+                required
+                disabled={isSubmitting || isSendingOtp || isVerifyingOtp}
+                className={submitStatus === 'error' && !email.trim() ? 'error' : ''}
+              />
+              <button
+                type="button"
+                className="inline-button"
+                onClick={handleSendOtp}
+                disabled={isSubmitting || isSendingOtp || isVerifyingOtp}
+              >
+                {isSendingOtp ? 'Sending...' : 'Send OTP'}
+              </button>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="otp">OTP *</label>
+            <div className="email-otp-row">
+              <input
+                type="text"
+                id="otp"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                placeholder="Enter 6-digit OTP"
+                required
+                disabled={!isOtpSent || isSubmitting || isVerifyingOtp}
+                className={submitStatus === 'error' && !otp.trim() ? 'error' : ''}
+              />
+              <button
+                type="button"
+                className="inline-button"
+                onClick={handleVerifyOtp}
+                disabled={!isOtpSent || isSubmitting || isSendingOtp || isVerifyingOtp}
+              >
+                {isVerifyingOtp ? 'Verifying...' : 'Verify OTP'}
+              </button>
+            </div>
+            {otpMessage && (
+              <p className={`otp-message ${isOtpVerified ? 'success' : ''}`}>
+                {otpMessage}
+              </p>
+            )}
           </div>
 
           <div className="form-group">
@@ -148,7 +299,7 @@ This is an automated request from the TBYT account deletion form.`,
               <strong>Request Submitted Successfully!</strong>
               <p>
                 We have received your account deletion request. We will process your request within 30 days 
-                and send a confirmation email to {email} once your account and data have been deleted.
+                and send a confirmation email to {submittedEmail} once your account and data have been deleted.
               </p>
             </div>
           )}
@@ -156,7 +307,7 @@ This is an automated request from the TBYT account deletion form.`,
           <button 
             type="submit" 
             className="submit-button"
-            disabled={isSubmitting}
+            disabled={isSubmitting || !isOtpVerified}
           >
             {isSubmitting ? 'Sending Request...' : 'Send Deletion Request'}
           </button>

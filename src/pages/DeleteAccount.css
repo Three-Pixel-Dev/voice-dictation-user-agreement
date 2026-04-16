@@ -90,6 +90,12 @@
   font-size: 1rem;
 }
 
+.email-otp-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
 .form-group input,
 .form-group textarea {
   width: 100%;
@@ -122,6 +128,40 @@
 .form-group textarea {
   resize: vertical;
   min-height: 120px;
+}
+
+.inline-button {
+  min-width: 140px;
+  padding: 0.75rem 1rem;
+  background-color: #22C55E;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.inline-button:hover:not(:disabled) {
+  background-color: #16a34a;
+}
+
+.inline-button:disabled {
+  background-color: #94d3a2;
+  cursor: not-allowed;
+}
+
+.otp-message {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  color: #155724;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.otp-message.success {
+  color: #15803d;
 }
 
 .error-message {
@@ -230,5 +270,13 @@
 
   .info-section {
     padding: 1rem;
+  }
+
+  .email-otp-row {
+    flex-direction: column;
+  }
+
+  .inline-button {
+    width: 100%;
   }
 }
